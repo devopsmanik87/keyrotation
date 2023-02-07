@@ -1,0 +1,29 @@
+
+region: us-east-1  # Control Tower Home Region
+version: 2021-03-15
+
+resources:
+  
+
+ # ControlTower Custom CFN Resources - Create Additional IAM Role
+  - name: create-iam-role
+    resource_file: templates/taskiamrole.template
+    deploy_method: stack_set
+    deployment_targets:
+      organizational_units:
+        
+        - SANDBOX:PRD-CICD # Formerly Custom
+       
+    regions:
+      - us-west-2
+
+  - name: Keyrotationlambdafn
+    resource_file: templates/keyrotationlambdafn.template
+    deploy_method: stack_set
+    deployment_targets:
+      organizational_units:
+        
+        - SANDBOX:PRD-CICD # Formerly Custom
+
+    regions:
+      - us-west-2
